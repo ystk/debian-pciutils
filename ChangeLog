@@ -1,3 +1,38 @@
+2012-01-14  Martin Mares <mj@ucw.cz>
+
+	* Released as 3.1.9.
+
+	* Updated README.
+
+	* Whereever we mention the PCI ID database, we now refer to
+	  http://pci-ids.ucw.cz/ and the sf.net site is mentioned only
+	  as a mirror. This includes update-pciids.
+
+	* Decode PCIe Gen 3 speeds and link status fields.
+
+	* Various minor bug fixes.
+
+	* Updated pci.ids to the today's snapshot of the database.
+
+2011-10-02  Martin Mares <mj@ucw.cz>
+
+	* Released as 3.1.8.
+
+	* More capabilities: Transaction Processing Hints, Latency Tolerance
+	Reporting. Thanks to Jesse Barnes.
+
+	* Added BeOS and Haiku ports. Contributed by Francois Revol.
+
+	* pciutils.pc now uses Libs.private properly.
+
+	* When we format a name and it does not fit in the buffer, we truncate
+	it instead of returning "buffer too small" instead. This works on all
+	platforms with sane (i.e., C99-compatible) snprintf().
+
+	* Various minor bug fixes.
+
+	* Updated pci.ids to the today's snapshot of the database.
+
 2010-01-31  Martin Mares <mj@ucw.cz>
 
 	* Released as 3.1.7.

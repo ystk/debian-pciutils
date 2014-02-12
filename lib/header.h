@@ -223,6 +223,8 @@
 #define PCI_EXT_CAP_ID_ARI	0x0e	/* Alternative Routing-ID Interpretation */
 #define PCI_EXT_CAP_ID_ATS	0x0f	/* Address Translation Service */
 #define PCI_EXT_CAP_ID_SRIOV	0x10	/* Single Root I/O Virtualization */
+#define PCI_EXT_CAP_ID_TPH	0x17	/* Transaction processing hints */
+#define PCI_EXT_CAP_ID_LTR	0x18	/* Latency Tolerance Reporting */
 
 /*** Definitions of capabilities ***/
 
@@ -858,9 +860,14 @@
 #define  PCI_EXP_LNKCTL2_MARGIN(x)	(((x) >> 7) & 7) /* Transmit Margin */
 #define  PCI_EXP_LNKCTL2_MOD_CMPLNC	0x0400	/* Enter Modified Compliance */
 #define  PCI_EXP_LNKCTL2_CMPLNC_SOS	0x0800	/* Compliance SOS */
-#define  PCI_EXP_LNKCTL2_COM_DEEMPHASIS(x) (((x) >> 12) & 1) /* Compliance De-emphasis */
+#define  PCI_EXP_LNKCTL2_COM_DEEMPHASIS(x) (((x) >> 12) & 0xf) /* Compliance De-emphasis */
 #define PCI_EXP_LNKSTA2			0x32	/* Link Status */
 #define  PCI_EXP_LINKSTA2_DEEMPHASIS(x)	((x) & 1)	/* Current De-emphasis Level */
+#define  PCI_EXP_LINKSTA2_EQU_COMP	0x02	/* Equalization Complete */
+#define  PCI_EXP_LINKSTA2_EQU_PHASE1	0x04	/* Equalization Phase 1 Successful */
+#define  PCI_EXP_LINKSTA2_EQU_PHASE2	0x08	/* Equalization Phase 2 Successful */
+#define  PCI_EXP_LINKSTA2_EQU_PHASE3	0x10	/* Equalization Phase 3 Successful */
+#define  PCI_EXP_LINKSTA2_EQU_REQ	0x20	/* Link Equalization Request */
 #define PCI_EXP_SLTCAP2			0x34	/* Slot Capabilities */
 #define PCI_EXP_SLTCTL2			0x38	/* Slot Control */
 #define PCI_EXP_SLTSTA2			0x3a	/* Slot Status */
@@ -1027,6 +1034,24 @@
 #define PCI_IOV_MSAO		0x3c	/* VF Migration State Array Offset */
 #define PCI_IOV_MSA_BIR(x)	((x) & 7) /* VF Migration State BIR */
 #define PCI_IOV_MSA_OFFSET(x)	((x) & 0xfffffff8) /* VF Migration State Offset */
+
+/* Transaction Processing Hints */
+#define PCI_TPH_CAPABILITIES	4
+#define   PCI_TPH_INTVEC_SUP	(1<<1)	/* Supports interrupt vector mode */
+#define   PCI_TPH_DEV_SUP      	(1<<2)	/* Device specific mode supported */
+#define   PCI_TPH_EXT_REQ_SUP	(1<<8)	/* Supports extended requests */
+#define   PCI_TPH_ST_LOC_MASK	(3<<9)	/* Steering table location bits */
+#define     PCI_TPH_ST_NONE	(0<<9)	/* No steering table */
+#define     PCI_TPH_ST_CAP	(1<<9)	/* Steering table in TPH cap */
+#define     PCI_TPH_ST_MSIX	(2<<9)	/* Steering table in MSI-X table */
+#define   PCI_TPH_ST_SIZE_SHIFT	(16)	/* Encoded as size - 1 */
+
+/* Latency Tolerance Reporting */
+#define PCI_LTR_MAX_SNOOP	4	/* 16 bit value */
+#define   PCI_LTR_VALUE_MASK	(0x3ff)
+#define   PCI_LTR_SCALE_SHIFT	(10)
+#define   PCI_LTR_SCALE_MASK	(7)
+#define PCI_LTR_MAX_NOSNOOP	6	/* 16 bit value */
 
 /*
  * The PCI interface treats multi-function devices as independent
